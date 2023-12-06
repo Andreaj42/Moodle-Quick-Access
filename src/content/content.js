@@ -1,9 +1,16 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  if (request.action === 'performFunction') {
-    moodleInjection();
+  if (request.action === 'executeMoodleScript') {
+    waitForPageLoad();
   }
 });
 
+function waitForPageLoad() {
+  if (document.readyState === "complete") {
+    moodleInjection();
+  } else {
+    document.addEventListener("DOMContentLoaded", executeMoodleScript);
+  }
+}
 
 function moodleInjection() {
   console.log("Lancement de l'injection");

@@ -5,18 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const changeUserBtn = document.getElementById('change-user-btn');
     const loginForm = document.getElementById('login-form');
 
-    var button = document.getElementById('myButton');
-    button.addEventListener('click', function() {
-      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {action: 'performFunction'});
-      });
-    });
 
     chrome.storage.local.get(['username', 'password'], function (result) {
         if (result.username && result.password) {
             loginContainer.style.display = 'none';
 
-            userInfoElement.textContent = `Utilisateur: ${result.username}`;
+            userInfoElement.textContent = `Utilisateur connecté : ${result.username}`;
             userInfoContainer.style.display = 'block';
         }
     });
@@ -30,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
         chrome.storage.local.set({ 'username': username, 'password': password }, function () {
             console.log('Données du formulaire stockées avec succès.');
             loginContainer.style.display = 'none';
-            userInfoElement.textContent = `Utilisateur connecté : ${username}`;
             userInfoContainer.style.display = 'block';
         });
     });
