@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const changeUserBtn = document.getElementById('change-user-btn');
     const loginForm = document.getElementById('login-form');
 
-
     chrome.storage.local.get(['username', 'password'], function (result) {
         if (result.username && result.password) {
             loginContainer.style.display = 'none';
